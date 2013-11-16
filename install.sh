@@ -1,6 +1,6 @@
 #!/bin/sh
 # install.sh
-# Installs dotfiles into $HOME, and creates a symbolic link to $HOME/.dofiles
+# Installs dotfiles into $HOME, and creates a symbolic link to $HOME/.dotfiles
 # if DOTFILES_ROOT isn't already pointing there.
 
 DOTFILES_ROOT="`pwd`"
