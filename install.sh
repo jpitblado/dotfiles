@@ -31,7 +31,6 @@ setup_gitconfig () {
 		*)	git_cred_helper="cache"
 			;;
 		esac
-		git_cred_helper="cache"
 
 		echo "Query: What is your git author name?"
 		read -e git_authorname
