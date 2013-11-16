@@ -128,3 +128,5 @@ EXEC 01;32
 #   object files and archives
 .o 01;35
 .a 01;35
+
+# end: ls-colors
