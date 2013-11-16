@@ -1,0 +1,286 @@
+#!/bin/sh
+# ccp
+# Copyright (c) 2006 Jeffrey S. Pitblado
+
+date=`date '+%y-%m-%d-%H%M%Z'`
+self=`basename $0`
+difflog=cf.log
+trap "rm -rf /tmp/$self-*diff-$$.log; exit" 0 1 2 3 15
+
+Usage () {
+	cat <<EOF
+Usage: $self [option] <source> <destination>
+
+Compare/copy file(s) listed in <source> to <destination>.
+
+     <destination> is a file or a directory; the last argument given to
+     $self.
+
+     <source> is an unquoted list of one or more files and/or directories.
+
+Options:
+  -?|-h|--help   Display this information, ignore other args
+  -d             turn on debug
+
+There are 3 ways that $self can be used.
+
+1.  If <source> and <destination> are each a single file, then $self will
+compare them and inform the user of any difference between them using
+results of the diff command.  Nothing happens if the files are identical.
+If <destination> does not exist, then <destination> becomes a copy of
+<source>.
+
+2.  If <source> is a directory, then <destination> must also be a
+directory.  In this case, every file in <source> is compare/copied to
+<destination>.
+
+3.  If <source> is a list of files and directories, then <destination> must be
+a directory.  The result is a mix of 1. and 2. above.
+
+EOF
+	exit 1
+}
+
+
+##############################################################################
+# Functions defined in this section.
+
+# Usage:  CCP <src> <dest>
+# Here <src> can be a file or a directory name.  If <src> is a directory,
+# it is assumed that all files contained, including files contained in
+# subdirectories, are to be copied to directory <dest>.  In this case,
+# <dest> is assumed to be an existing directory.  CCP uses CCPONE on each
+# file contained in <src>.
+
+CCP () {
+	CCPsrc=$1
+	# Strip off slash "/" from end of $CCPdest.
+	CCPdest=`echo "$2" | sed -e 's#/$##g'`
+	[ -n "$debug" ] &&
+	echo "$self: debug: CCP: CCPsrc is |$CCPsrc|, CCPdest is |$CCPdest|"
+	EMPTY_CHECK $CCPsrc
+	EMPTY_CHECK $CCPdest
+	# $CCPsrc is a file
+	if [ -f $CCPsrc ]
+	then
+		[ -n "$debug" ] &&
+		echo "$self: debug: CCP: |$CCPsrc| is a file"
+		if [ -d $CCPdest ]
+		then
+			[ -n "$debug" ] &&
+			echo "$self: debug: CCP: |$CCPdest| is a directory"
+			base=`basename $CCPsrc`
+			CCPdest=$CCPdest/$base
+		elif [ -f $CCPdest ]
+		then
+			[ -n "$debug" ] &&
+			echo "$self: debug: CCP: |$CCPdest| is a file"
+		else
+			echo "$self: $CCPdest: no such file or directory"
+			return 1
+		fi
+		[ -n "$debug" ] &&
+		echo "$self: debug: CCP: CCPONE $CCPsrc $CCPdest"
+		CCPONE $CCPsrc $CCPdest || exit 1
+		return
+	fi
+	# $CCPsrc is a directory
+	[ -n "$debug" ] &&
+	echo "$self: debug: CCP: |$CCPsrc| is a directory"
+	if [ ! -d $CCPdest ]
+	then
+		echo "$self: $CCPdest: no such directory"
+		return 1
+	fi
+	if [ ! -w $CCPdest ]
+	then
+		echo "$self: $CCPdest: directory not writable"
+		return 1
+	fi
+	CCPsrclist=`find $CCPsrc -name "*"`
+	[ -n "$debug" ] &&
+	echo "$self: debug: CCP: CCPsrclist is |$CCPsrclist|"
+	for file in $CCPsrclist
+	do
+		if [ -f $file ]
+		then
+			base=`basename $file`
+			[ -n "$debug" ] &&
+			echo "$self: debug: CCP: CCPONE $file $CCPdest/$base"
+			CCPONE $file $CCPdest/$base || exit 1
+		fi
+	done
+}
+
+# check that the argument list is not empty, a catastrophy otherwise!
+EMPTY_CHECK () {
+	if [ ! -n "$*" ]
+	then
+		exit 1
+	fi
+}
+
+# Usage:  CCPONE <src> <dest>
+# Main logic to compare/copy a file from <src> to <dest>.  Here the
+# assumption is that <dest> is the older file, and <src> is new and
+# improved.  If <src> is a directory, nothing happens.
+
+CCPONE () {
+	CC1src=$1
+	CC1dest=$2
+	[ -n "$debug" ] &&
+	echo "$self: debug: CCPONE: CC1src is |$CC1src|, CC1dest is |$CC1dest|"
+	EMPTY_CHECK $CC1src
+	EMPTY_CHECK $CC1dest
+	if [ -d $CC1src ]
+	then
+		[ -n "$debug" ] && 
+		echo "$self: debug: CCPONE: |$CC1src| is a directory so return"
+		return
+	fi
+	if [ -d $CC1dest ]
+	then
+		[ -n "$debug" ] && 
+		echo "$self: debug: CCPONE: |$CC1dest| is a directory so return"
+		return
+	fi
+	if [ ! -r $CC1src ]
+	then
+		echo "$self: $CC1src: no such file or not readable"
+		return 1
+	fi
+	if [ ! -f $CC1dest ]
+	then
+		# $CC1dest is to become a copy of $CC1src
+		echo
+		echo "$CC1src ==> $CC1dest"
+		cp $CC1src $CC1dest
+	else
+		# $CC1dest does exist
+		if [ ! -w $CC1dest ]
+		then
+			echo "$self: $CC1dest: not writable"
+			exit 1
+		fi
+		idiff=/tmp/$self-idiff-$$.log
+		diffcmd="diff $CC1dest $CC1src"
+		eval $diffcmd > $idiff			# $idiff file created
+		if [ ! -s $idiff ]
+		then
+			echo
+			echo "$CC1src == $CC1dest"
+		else
+			# there is a difference between $CC1src and $CC1dest
+			echo
+			diff=/tmp/$self-diff-$$.log
+			echo "Difference observed:  $diffcmd"
+			echo "$diffcmd" > $diff		# $diff file created
+			echo "destination file is: $CC1dest" >> $diff
+			echo "source      file is: $CC1src"  >> $diff
+			echo >> $diff
+			cat $idiff >> $diff
+			VIEW_FILE $diff $CC1src $CC1dest
+			vfexit=$?
+			if [ $vfexit = 0 ]
+			then
+				ACCEPT_FILE $CC1src $CC1dest
+			fi
+			rm -f $diff			# $diff file removed
+		fi
+		rm -f $idiff				# $idiff file removed
+	fi
+	if [ "$vfexit" = "2" ]
+	then
+		return 1
+	fi
+}
+
+# Usage:  ACCEPT_FILE <src> <dest>
+# Accept difference between <src> and <dest> files and copy <src> to <dest>.
+# Copy if given "yes" or "YES"; otherwise, no action is taken.
+
+ACCEPT_FILE () {
+	AFsrc=$1
+	AFdest=$2
+	# decide to save or not
+	echo -e "Accept differences?  (spell out yes) -> \c"
+	read answ rest
+	case "$answ" in
+	yes|YES)
+		echo
+		cp -f $AFsrc $AFdest
+		;;
+	*)
+		echo "no action taken"
+		;;
+	esac
+}
+
+# Usage:  VIEW_FILE <log> <other files>
+# cat or edit a log file.  After listing all files supplied in the arguments.
+
+VIEW_FILE () {
+	VLlog=$1
+	shift 1
+	echo "------------------------------------------------------------------------------"
+	/bin/ls -l $*
+	echo "------------------------------------------------------------------------------"
+	/bin/ls -l $VLlog
+	echo -e "\ncat/vi \"$VLlog\"?  y/v/n/q -> \c"
+	read answ rest
+	case "$answ" in
+	y|yes|Y|YES)  echo
+		cat $VLlog
+		;;
+	v|vi)	vim $VLlog
+		;;
+        q)	echo "no action taken, and quitting"
+		return 2
+		;;
+	*)	echo "no action taken"
+		return 1
+		;;
+	esac
+}
+
+##############################################################################
+# Main logic begins here.
+
+# Check for help.
+if [ "$1" = "-?" ] ||
+   [ "$1" = "-h" ] ||
+   [ "$1" = "--help" ]
+then
+	Usage
+fi
+
+# a non-empty $debug results in debugging messages
+if [ "$1" = "-d" ]
+then
+	debug="debug"
+	shift 1
+fi
+
+# Too few args
+if [ ${#} -lt 2 ]
+then
+	Usage
+fi
+
+# Convert argument list into $srclist and $dest.
+while [ ${#} -gt 1 ]
+do
+	[ -n "$debug" ] && echo "$self: debug: src  arg is |$1|"
+	srclist="$srclist $1"
+	shift 1
+done
+dest=$1
+[ -n "$debug" ] && echo "$self: debug: dest arg is |$dest|"
+
+for src in $srclist
+do 
+	[ -n "$debug" ] && echo "$self: debug: CCP $src $dest"
+	CCP $src $dest || exit 1
+done
+
+exit

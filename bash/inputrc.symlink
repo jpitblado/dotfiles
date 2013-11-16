@@ -1,0 +1,6 @@
+# .inputrc
+
+set mark-directores on
+set mark-symlinked-directories on
+
+# end: .inputrc

@@ -1,0 +1,48 @@
+#!/bin/sh
+# clean
+# Copyright (c) 2013 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+Usage () {
+	cat <<EOF
+Usage: $self [now|list]
+
+Removes the following temporary files:
+
+	_diff.log
+	_spell.log
+	efile.out
+	stata.log
+EOF
+	exit 1
+}
+
+case "$#" in
+1)	;;
+*)	Usage
+	;;
+esac
+
+case "$1" in
+now)	MYCMD=rm
+	;;
+ls|list)
+	MYCMD=echo
+	;;
+*)	Usage
+	;;
+esac
+
+find . -type d				\
+	\(	   -name .svn		\
+		-o -name .git		\
+	\)				\
+	-prune -o			\
+	\(	   -name "_diff.log"	\
+		-o -name "_spell.log"	\
+		-o -name "efile.out"	\
+		-o -name "stata.log"	\
+	\)				\
+	-exec $MYCMD {} ';'
+

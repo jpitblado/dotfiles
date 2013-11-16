@@ -1,0 +1,7 @@
+#!/bin/sh
+# tarc
+# Copyright (c) 2002 Jeffrey S. Pitblado
+
+tarz --nogzip $*
+
+exit

@@ -1,0 +1,32 @@
+#!/bin/sh
+# mvstub
+# Copyright (c) 2005 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+case "$1" in
+-S*)
+	stub=`echo $1 | sed -e s'/-S//'`
+	shift
+	;;
+*)
+	cat << EOF
+Usage: $self -S<stub> <filelist>
+
+Renames files in <filelist> to <stub>#, where # is the consecutive integers
+starting at 1.  The resulting moved files are placed in the current working
+directory.
+EOF
+	exit 1
+	;;
+esac
+
+i=0
+for name in ${*}
+do
+	i=`echo $i+1 | bc`
+	echo "$name --> $stub$i"
+	mv $name $stub$i
+done
+
+exit

@@ -1,0 +1,30 @@
+# .gitignore
+
+# junk files
+_diff.log
+_spell.log
+stata.log
+
+# Compiled source
+*.a
+*.o
+*.so
+
+# Vim files
+.*.swp
+
+# Packages
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.tgz
+*.zip
+
+# OS files
+.DS_Store
+.DS_Store?
+
+# END

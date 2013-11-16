@@ -1,0 +1,20 @@
+#!/bin/sh
+# xcolumn
+# Copyright (c) 2005 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+case "$#" in
+1)
+	awk "{print \$$1}"
+	;;
+*)
+	cat <<EOF
+Usage: $self #
+
+Filter out the #th column of input.
+EOF
+	exit 1
+	;;
+esac
+

@@ -1,0 +1,22 @@
+# .bashrc
+
+if [ -f /etc/bashrc ]
+then
+	. /etc/bashrc
+fi
+
+if [ -r $HOME/.localrc ]
+then
+	. $HOME/.localrc
+fi
+
+if [ -z "$DOTFILES" ]
+then
+	export DOTFILES=$HOME/.dotfiles
+fi
+
+for file in `find "$DOTFILES/" -maxdepth 2 -name "*.bashrc"`
+do
+	. $file
+done
+

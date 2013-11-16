@@ -1,0 +1,21 @@
+# .gitconfig
+
+[user]
+	name = AUTHORNAME
+	email = AUTHOREMAIL
+[credential]
+	helper = CRED_HELPER
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[merge]
+	tool = vimdiff
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	dc = diff --cached
+[push]
+	default = simple
+[color]
+	ui = true

@@ -1,0 +1,105 @@
+#!/bin/sh
+# cpsub
+# Copyright (c) 2006 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+Usage () {
+	cat <<EOF
+Usage: ${self} source word substitutions...
+
+Create copies of a text file with a word substitution.  The resulting files
+are placed in the current directory even if <source> is a path.
+
+Arguments:
+	source		original file
+	word		string to change in <source> name and content
+	substitutions	substitution strings for <word>
+
+Required scripts: $scripts
+
+EOF
+	exit 1
+}
+
+errMsg () {
+	echo "${*}" 1>&2
+	echo 1>&2
+}
+
+CHECK4SCRIPT () {
+	while [ -n "$1" ]
+	do
+		type $1 > /dev/null
+		if [ $? -ne 0 ]
+		then
+			errMsg "$self: $1: required script not found"
+			exit 1
+		fi
+		shift
+	done
+}
+CHECK4SCRIPT $scripts
+
+if [ "$#" = "0" ]
+then
+	Usage
+fi
+
+# parse arguments
+while [ ! -z "$1" ]
+do
+	case $1 in
+	-h|--help)
+		Usage
+		;;
+	*)
+		break
+		;;
+	esac
+done
+
+tmpfile=/tmp/${self}-$$
+src_file=$1
+word=$2
+shift 2
+for newword in $*
+do
+	if [ ! -f $src_file ]
+	then
+		echo "$self: $src_file: no such file, no action taken"
+	else
+		newfile=`basename $src_file`
+		checkfile=$newfile
+		newfile=`echo "$newfile" | sed -e "s/$word/$newword/"`
+		if [ "$checkfile" = "$newfile" ]
+		then
+			echo "$self: $word not in basename of $src_file"
+			exit 1
+		fi
+		sed -e "s/$word/$newword/g" $src_file > $tmpfile || exit 1
+		same=0
+		if [ -f $newfile ]
+		then
+			cmp -s $newfile $tmpfile
+			if [ $? -ne 0 ]
+			then
+				mv "$newfile" "$newfile.bak" || exit 1
+				rm -f $newfile
+			else
+				same=1
+			fi
+		fi
+		if [ "$same" = "0" ]
+		then
+			mv $tmpfile $newfile || exit 1
+			if [ -x $src_file ]
+			then
+				chmod +x $newfile
+			fi
+		fi
+	fi
+done
+rm -f $tmpfile
+
+exit

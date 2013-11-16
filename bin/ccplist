@@ -1,0 +1,72 @@
+#!/bin/sh
+# ccplist
+# Copyright (c) 2006 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+Usage () {
+	cat <<EOF
+Usage: $self <src> <dest> <list>
+
+Use the 'ccp' script to files from <src> to <dest>, preserving the
+subdirectory structure.
+
+<list> is a file that identifies which files from <src> to copy over to <dest>.
+
+EOF
+	exit 1
+}
+
+ChkDir () {
+	if [ ! -d $1 ]
+	then
+		echo "$self: '$1' no such directory"
+		exit 1
+	fi
+}
+ChkFile () {
+	if [ ! -f $1 ]
+	then
+		echo "$self: '$1' no such file"
+		exit 1
+	fi
+}
+
+if [ $# -ne 3 ]
+then
+	Usage
+fi
+
+src=$1
+dest=$2
+list=$3
+
+ChkDir $src
+ChkDir $dest
+ChkFile $list
+
+for file in `cat $list`
+do
+	if [ -d $src/$file ]
+	then
+		dir=$file
+		unset file
+	else
+		if [ ! -f $src/$file ]
+		then
+			echo "$self: '$src/$file' no such file"
+			echo "$self: continuing..."
+		fi
+		dir=`dirname $file`
+	fi
+	if [ ! -d $dest/$dir ]
+	then
+		mkdir -p $dest/$dir
+	fi
+	if [ ! -z "$file" ]
+	then
+		ccp $src/$file $dest/$file
+	fi
+done
+
+exit

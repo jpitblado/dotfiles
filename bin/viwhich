@@ -1,0 +1,12 @@
+#!/bin/sh
+# viwhich
+# Copyright (c) 2005 Jeffrey S. Pitblado
+
+if which vim >& /dev/null
+then
+	myvi=vim
+else
+	myvi=vi
+fi
+
+$myvi `which ${*}`
