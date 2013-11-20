@@ -1,0 +1,45 @@
+#!/bin/sh
+# minus
+# Copyright (c) 2005 Jeffrey S. Pitblado
+
+self=`basename $0`
+tmpfile1=/tmp/$self-$$.tmp1
+tmpfile2=/tmp/$self-$$.tmp2
+tmpfile3=/tmp/$self-$$.tmp3
+trap "rm -rf /tmp/$self-$$.tmp[123]; exit" 0 1 2 3 15
+
+usage () {
+	cat << EOF 1>&2
+Usage: $self <bfile> <mfile> [<mfile> ...]
+
+$self subtracts all matching lines in <mfile> from <bfile>.
+
+EOF
+	rm -f ${tmpfile1} ${tmpfile2} ${tmpfile3}
+	exit 1
+}
+
+if [ ${#} -lt 2 ]
+then
+	usage
+fi
+
+cp ${1} ${tmpfile1}
+shift
+
+for mfile in ${*}
+do 
+	if [ ! -f ${mfile} ]
+	then
+		echo "file not found: ${mfile}" 2>&1
+		echo 2>&1
+		usage
+	fi
+	sort ${tmpfile1} ${mfile} | uniq -d > ${tmpfile2}
+	sort ${tmpfile1} ${tmpfile2} | uniq -u > ${tmpfile3}
+	mv ${tmpfile3} ${tmpfile1}
+done
+
+cat ${tmpfile1}
+
+exit
