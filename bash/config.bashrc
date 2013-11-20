@@ -2,16 +2,6 @@
 
 unset TMOUT
 
-# Newly created file non-permissions.
-case `id -ng` in
-apache)
-	umask 002
-	;;
-*)
-	umask 022
-	;;
-esac
-
 # Default editor.
 export EDITOR=vim
 
