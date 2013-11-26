@@ -21,6 +21,8 @@ install.sh
 
 `install.sh` symlinks certain files in `~/.dotfiles` to `$HOME`.
 
+Then just update your `.bashrc` file to include `.dotfilesrc`.
+
 ## topical
 
 Everything's built around topic areas. If you're adding a new area to your

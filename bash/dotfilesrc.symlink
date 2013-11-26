@@ -1,14 +1,4 @@
-# .bashrc
-
-if [ -f /etc/bashrc ]
-then
-	. /etc/bashrc
-fi
-
-if [ -r $HOME/.localrc ]
-then
-	. $HOME/.localrc
-fi
+# .dotfilesrc
 
 if [ -z "$DOTFILES" ]
 then
@@ -20,4 +10,4 @@ do
 	. $file
 done
 
-# end: .bashrc
+# end: .dotfilesrc
