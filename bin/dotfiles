@@ -28,7 +28,7 @@ esac
 d=`dirname $0`
 cd $d || exit 1
 echo "$self: pulling updates..."
-if git pull --quiet
+if git pull
 then
 	echo "$self: you are up-to-date"
 else
