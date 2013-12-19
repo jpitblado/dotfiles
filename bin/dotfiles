@@ -1,0 +1,37 @@
+#!/bin/sh
+# dotfiles
+# Copyright (c) 2013 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+Usage () {
+	cat <<EOF
+Usage: $self [update]
+
+Use 'git pull' to update your working copy of dotfiles/
+EOF
+	exit 1
+}
+
+case "$#" in
+1)	;;
+*)	Usage
+	;;
+esac
+
+case "$1" in
+update)	;;
+*)	Usage
+	;;
+esac
+
+d=`dirname $0`
+cd $d || exit 1
+echo "$self: pulling updates..."
+if git pull --quiet
+then
+	echo "$self: you are up-to-date"
+else
+	echo "$self: problem pulling the update"
+fi
+
