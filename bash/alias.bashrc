@@ -45,10 +45,6 @@ Darwin)
 	alias acroread='open -a "Adobe Reader"'
 	alias chrome='open -a "Google Chrome"'
 	alias firefox='open -a "/Applications/Firefox.app"'
-	if type growlnotify >& /dev/null
-	then
-		alias gn='growlnotify'
-	fi
 	export CLICOLOR=1
 	export LSCOLORS=ExGxBxDxCxegedabagacad
 	alias ls='ls -Fv'
