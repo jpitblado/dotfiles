@@ -23,6 +23,7 @@ pathmunge () {
 }
 
 # prepend these to the path
+pathmunge /Applications/Xcode.app/Contents/Developer/usr/subversion-1.6/bin
 pathmunge /usr/local/bin
 pathmunge $HOME/texmf/bin
 pathmunge $HOME/bin
