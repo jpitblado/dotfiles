@@ -6,7 +6,6 @@ _spell.log
 stata.log
 
 # Compiled source
-*.a
 *.o
 *.so
 
