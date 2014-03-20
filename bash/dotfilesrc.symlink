@@ -5,7 +5,7 @@ then
 	export DOTFILES=$HOME/.dotfiles
 fi
 
-for file in `find "$DOTFILES/" -maxdepth 2 -name "*.bashrc"`
+for file in `find "$DOTFILES/" -name "*.bashrc"`
 do
 	. $file
 done

@@ -46,7 +46,7 @@ setup_gitconfig () {
 }
 
 install_dotfiles () {
-	for src in `find "$DOTFILES_ROOT" -maxdepth 2 -name "*.symlink"`
+	for src in `find "$DOTFILES_ROOT" -name "*.symlink"`
 	do
 		dest="$HOME/.`basename \"${src%.*}\"`"
 		link_files "$src" "$dest"
