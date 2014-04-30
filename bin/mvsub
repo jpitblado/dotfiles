@@ -1,0 +1,105 @@
+#!/bin/sh
+# mvsub
+# version 1.0.0  15apr2014
+
+self=`basename $0`
+tmp=$self-tmp-$$
+trap "rm -rf $tmp; exit" 0 1 2 3 15
+
+Usage () {
+	cat <<EOF
+Usage: $self [-c|-g] <sedscript> <file> [<file>...]
+
+Apply <sedscript> to the filename and contents of each supplied <file>.
+
+If the file name changes, rename the file.
+
+Changes within the file are applied to the resulting file.
+
+Options:
+
+	-c	copy file instead of rename
+	-g	use -git mv-
+
+EOF
+	exit 1
+}
+
+MYMOVE="mv"
+if [ "$1" = "-c" ]
+then
+	MYMOVE="cp"
+	shift
+elif [ "$1" = "-g" ]
+then
+	MYMOVE="git mv"
+	shift
+fi
+
+case "$1" in
+-*)	Usage
+	;;
+esac
+
+case "$#" in
+0|1)	Usage
+	;;
+esac
+
+script=$1
+shift
+
+unset EOPT
+case "`uname -s`" in
+Darwin)	;;
+*)	EOPT="-e"
+	;;
+esac
+
+count=0
+moved=0
+notfound=0
+changed=0
+while [ ! -z "$1" ]
+do
+	dot="."
+	if [ ! -f $1 ]
+	then
+		dot="x"
+		notfound=`echo $notfound+1 | bc`
+	else
+		nf=`echo $1 | sed -f $script`	|| exit 1
+		if [ "$nf" != "$1" ]
+		then
+			$MYMOVE $1 $nf > /dev/null	|| exit 1
+			moved=`echo $moved+1 | bc`
+			dot="m"
+		fi
+		sed -f $script $nf > $tmp	|| exit 1
+		cmp -s $tmp $nf
+		if [ $? -ne 0 ]
+		then
+			mv -f $tmp $nf
+			changed=`echo $changed+1 | bc`
+			if [ "$dot" = "." ]
+			then
+				dot="c"
+			else
+				dot="b"
+			fi
+		else
+			rm -f $tmp
+		fi
+	fi
+	shift
+	count=`echo $count+1 | bc`
+	echo $EOPT "$dot\c"
+done
+
+echo
+echo "files processed:  " $count
+echo "files not found:  " $notfound
+echo "files renamed:    " $moved
+echo "files changed:    " $changed
+
+exit
