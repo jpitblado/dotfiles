@@ -15,4 +15,8 @@ stata.log
 .DS_Store
 .DS_Store?
 
+# Xcode files
+DerivedData
+xcuserdata
+
 # end: .gitignore
