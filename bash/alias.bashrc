@@ -49,9 +49,6 @@ Darwin)
 	export LSCOLORS=ExGxBxDxCxegedabagacad
 	alias ls='ls -Fv'
 	;;
-SunOS)
-	alias ls='ls -F'
-	;;
 *)
 	# File type and extension color highlighting.
 	if type dircolors >& /dev/null
