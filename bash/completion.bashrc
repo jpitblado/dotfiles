@@ -12,4 +12,7 @@ Darwin)
 	;;
 esac
 
+# removed 'class' from the list, Stata has *.class files
+complete -f -X '*.@(o|so|so.!(conf)|a|[rs]pm|gif|jp?(e)g|mp3|mp?(e)g|avi|asf|ogg)' vi vim gvim view gview
+
 # end: completion.bashrc
