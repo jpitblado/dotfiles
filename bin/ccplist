@@ -11,7 +11,10 @@ Usage: $self <src> <dest> <list>
 Use the 'ccp' script to files from <src> to <dest>, preserving the
 subdirectory structure.
 
-<list> is a file that identifies which files from <src> to copy over to <dest>.
+<list> is a file that identifies which files from <src> to copy over to
+<dest>.
+
+NOTE: This script does not support filenames containing spaces.
 
 EOF
 	exit 1
