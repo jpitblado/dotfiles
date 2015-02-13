@@ -44,29 +44,29 @@ ChkDir $src
 ChkDir $dest
 ChkFile $list
 
-for file in `cat $list`
+while read file
 do
-	if [ -d $src/$file ]
+	if [ -d "$src/$file" ]
 	then
-		dir=$file
+		dir="$file"
 		unset file
 	else
-		if [ ! -f $src/$file ]
+		if [ ! -f "$src/$file" ]
 		then
 			echo "$self: '$src/$file' no such file"
 			echo "$self: continuing..."
 			continue
 		fi
-		dir=`dirname $file`
+		dir=`dirname "$file"`
 	fi
 	if [ ! -d $dest/$dir ]
 	then
-		mkdir -p $dest/$dir
+		mkdir -p "$dest/$dir"
 	fi
 	if [ ! -z "$file" ]
 	then
-		cp $src/$file $dest/$file
+		cp "$src/$file" "$dest/$file"
 	fi
-done
+done < $list
 
 exit
