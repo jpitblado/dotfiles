@@ -7,6 +7,7 @@ alias ,,='popd'
 alias ..='cd ..'
 
 # default options
+alias cp='cp -i'
 alias rm='rm -i'
 alias mv='mv -i'
 
