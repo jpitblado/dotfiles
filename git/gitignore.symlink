@@ -4,6 +4,7 @@
 _diff.log
 _spell.log
 stata.log
+efile.out
 
 # Compiled source
 *.o
