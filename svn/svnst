@@ -1,0 +1,12 @@
+#!/bin/sh
+# svnst
+# version 1.0.1  02apr2005
+
+if [ "$#" = "0" ]
+then
+	svn st | awk "{print \$NF}" | sort
+else
+	svn st | grep ${*} | awk "{print \$NF}" | sort
+fi
+
+exit

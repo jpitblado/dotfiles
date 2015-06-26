@@ -1,0 +1,10 @@
+#!/bin/sh
+# svn_copy_rev
+
+svn log --quiet --stop-on-copy $*	\
+	| grep "^r[0-9]* |"		\
+	| tail -1			\
+	| awk '{print $1}'		\
+	| sed -e 's/^r//'
+
+# end

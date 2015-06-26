@@ -1,0 +1,10 @@
+#!/bin/sh
+# svndiff
+# version 1.0.1  24jan2006
+#
+# This script causes -svn diff- to report the standard diff output instead of
+# the default extensions used by -svn diff-.
+
+svn diff --diff-cmd diff -x -N ${*}
+
+exit

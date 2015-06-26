@@ -1,0 +1,10 @@
+#!/bin/sh
+# svnlog
+# version 1.0.0  25mar2011
+#
+# This script causes -svn diff- to report the standard diff output instead of
+# the default extensions used by -svn diff-.
+
+svn log --stop-on-copy ${*}
+
+exit

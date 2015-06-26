@@ -1,0 +1,5 @@
+#!/bin/sh
+# svncodes
+# version 1.0.1  24apr2010
+
+svn st $* | awk "{print \$1}" | sort | uniq -c
