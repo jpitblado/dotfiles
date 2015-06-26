@@ -1,0 +1,12 @@
+#!/bin/sh
+# gitst
+# version 1.0.1  31jul2013
+
+if [ "$#" = "0" ]
+then
+	git status --short . | awk "{print \$NF}" | sort
+else
+	git status --short . | grep ${*} | awk "{print \$NF}" | sort
+fi
+
+exit

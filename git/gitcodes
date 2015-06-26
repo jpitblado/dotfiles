@@ -1,0 +1,5 @@
+#!/bin/sh
+# gitcodes
+# version 1.0.0  27jun2013
+
+git status --short $* | awk "{print \$1}" | sort | uniq -c
