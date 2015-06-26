@@ -25,12 +25,6 @@ pathmunge () {
 # prepend these to the path
 pathmunge $DOTFILES/bin
 
-# append these to the path
-if ! echo $PATH | egrep $OPT "(^|:)\.(\$|:)"
-then
-	PATH=$PATH:.
-fi
-
 unset OPT
 unset pathmunge
 
