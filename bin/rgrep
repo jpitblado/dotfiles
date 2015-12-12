@@ -1,0 +1,7 @@
+#!/bin/sh
+# rgrep
+# Copyright (c) 2015 Jeffrey S. Pitblado
+
+grep --recursive --exclude-dir=.git --exclude-dir=.svn ${*}
+
+# end: rgrep
