@@ -1,0 +1,35 @@
+#!/bin/sh
+# svncleanup
+
+self=`basename $0`
+
+Usage() {
+	cat <<EOF
+$self <dir>
+
+Report disk usage and call -svn cleanup- for <dir>.
+
+EOF
+	exit 1
+}
+
+if [ $# -ne 1 ]
+then
+	Usage
+fi
+
+cd "$1"	|| exit 1
+
+echo
+echo "disk usage before: $1"
+du -sm .
+
+echo
+echo "calling svn cleanup"
+svn cleanup .		|| exit 1
+
+echo
+echo "disk usage after:  $1"
+du -sm .
+
+# end: svncleanup
