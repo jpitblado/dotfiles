@@ -37,7 +37,7 @@ do
 	then
 		echo
 		echo "running git in $d"
-		git $@	|| exit 1
+		git $@ || exit 1
 	else
 		echo
 		echo "$d is not a git repo; skipping..."
