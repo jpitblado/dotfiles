@@ -1,6 +1,6 @@
 #!/bin/sh
 # svnclist
-# version 1.0.2  23sep2014
+# version 1.0.5  03nov2015
 #
 # This script uses -svn info-, -svn log-, and -svn diff- to produce a coded
 # list of files that have changed in a specified Subversion repository
@@ -42,14 +42,15 @@ esac
 svn info $Targ > ${tmp} || exit 1
 
 # URL of Repo target
-URL=`grep "URL:" ${tmp} | sed -e 's/URL: *//'`
+URL=`grep "^URL:" ${tmp} | sed -e 's/^URL: *//'`
 
 # Rev from which we care about changes
 Rev=`svn_copy_rev ${URL}`
 
 # get the list and strip off the URL from the output
 svn diff --summarize -r ${Rev}:head ${URL}	\
-	| sed -e "s@${URL}/@@"			\
+	| sed -e "s#${URL}/##"			\
+	| sed -e "s@%20@ @"			\
 	| grep -v "${URL}"
 
 # clean up temporary files
