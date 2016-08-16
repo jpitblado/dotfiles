@@ -14,6 +14,7 @@ Removes the following temporary files:
 	_spell.log
 	efile.out
 	stata.log
+	*~
 EOF
 	exit 1
 }
@@ -43,6 +44,7 @@ find . -type d				\
 		-o -name "_spell.log"	\
 		-o -name "efile.out"	\
 		-o -name "stata.log"	\
+		-o -name "*~"		\
 	\)				\
 	-exec $MYCMD {} ';'
 
