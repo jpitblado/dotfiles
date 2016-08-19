@@ -1,6 +1,6 @@
 #!/bin/sh
 # svnclist
-# version 1.0.5  03nov2015
+# version 1.1.0  19aug2016
 #
 # This script uses -svn info-, -svn log-, and -svn diff- to produce a coded
 # list of files that have changed in a specified Subversion repository
@@ -13,13 +13,16 @@ trap "rm -f ${tmp}; exit" 1 2 3 15
 
 Usage () {
 	cat <<EOF
-Usage:	$self TARGET
+Usage:	$self [-r #] TARGET
 
 A convenience script for Subversion.
 
 List a code for each file that has changed in the Subversion repository since
 the creation of TARGET.  Only files that differ in the current head revision
 from the revision at which the branch was created are listed.
+
+With option '-r #', $self builds the list from revision # instead of the
+revision at which the branch was created.
 
 TARGET may be a URL or the path to a working copy.
 
@@ -31,6 +34,20 @@ The codes are:
 EOF
 	exit 1
 }
+
+case $1 in
+-r)	if [ -z "$2" ]
+	then
+		echo "$self: option -r requires an argument"
+		exit 1
+	fi
+	Rev="$2"
+	shift 2
+	;;
+-r*)	Rev=`echo $1 | sed -e 's/-r//'`
+	shift
+	;;
+esac
 
 case $# in
 1)	Targ="$1"
@@ -45,7 +62,10 @@ svn info $Targ > ${tmp} || exit 1
 URL=`grep "^URL:" ${tmp} | sed -e 's/^URL: *//'`
 
 # Rev from which we care about changes
-Rev=`svn_copy_rev ${URL}`
+if [ -z "$Rev" ]
+then
+	Rev=`svn_copy_rev ${URL}`
+fi
 
 # get the list and strip off the URL from the output
 svn diff --summarize -r ${Rev}:head ${URL}	\
