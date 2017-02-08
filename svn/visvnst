@@ -1,0 +1,12 @@
+#!/bin/sh
+# visvnst
+# Copyright (c) 2017 Jeffrey S. Pitblado
+
+if which vim >& /dev/null
+then
+	myvi=vim
+else
+	myvi=vi
+fi
+
+$myvi `svnst ${*}`
