@@ -49,6 +49,10 @@ Darwin)
 	export LSCOLORS=ExGxBxDxCxegedabagacad
 	alias ls='ls -Fv'
 	;;
+CYGWIN*)
+	eval `dircolors --sh $DOTFILES/linux/ls-colors`
+	alias ls='ls --color -Fv --hide=NTUSER* --hide=ntuser*'
+	;;
 *)
 	# File type and extension color highlighting.
 	if type dircolors >& /dev/null
