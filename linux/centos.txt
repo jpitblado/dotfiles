@@ -1,0 +1,12 @@
+centos.txt
+
+Notes for CentOS 7:
+
+Get and set the size of the mouse pointer:
+
+	$ gsettings get org.gnome.desktop.interface cursor-size
+	24
+
+	$ gsettings set org.gnome.desktop.interface cursor-size 48
+
+<end>
