@@ -9,4 +9,17 @@ Get and set the size of the mouse pointer:
 
 	$ gsettings set org.gnome.desktop.interface cursor-size 48
 
+Make Gnome 3 workspaces work on both monditors in a dual-monitor setup:
+
+
+	$ gsettings get org.gnome.shell.overrides workspaces-only-on-primary
+	true
+
+	$ gsettings set org.gnome.shell.overrides workspaces-only-on-primary false
+
+	However, this did not seem to work.  I then noticed that the
+	Gnome-Tweak-Tool has a 'Workspaces' tab, and found an on/off
+	toggle for 'Workspaces only on primary dispplay'.  I turned it
+	off, and now have the behavior that I wanted.
+
 <end>
