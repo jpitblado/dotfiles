@@ -22,4 +22,24 @@ Make Gnome 3 workspaces work on both monditors in a dual-monitor setup:
 	toggle for 'Workspaces only on primary dispplay'.  I turned it
 	off, and now have the behavior that I wanted.
 
+Setup the apache web server:
+
+	Install the server:
+
+		$ sudo yum install httpd
+
+	Edit 'DocumentRoot' in /etc/httpd/conf/httpd.conf
+
+	Enable 'UserDir' in /etc/httpd/conf.d/userdir.conf
+
+	Turn on the service:
+
+		$ sudo systemctl enable httpd.service
+
+	To start/stop/restart the server:
+
+		$ sudo apachectl start
+		$ sudo apachectl stop
+		$ sudo apachectl restart
+
 <end>
