@@ -42,4 +42,8 @@ Setup the apache web server:
 		$ sudo apachectl stop
 		$ sudo apachectl restart
 
+Set the default printer:
+
+	$ lpoptions -d <printer-name>
+
 <end>
