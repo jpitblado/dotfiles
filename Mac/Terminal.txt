@@ -8,4 +8,8 @@ Disable AppNap for Terminal:
 	10.10 and after:
 	$ defaults write com.apple.Terminal LSAppNapIsDisabled -bool YES
 
+Make Terminal only show scrollbars when scrolling:
+
+	$ defaults write com.apple.Terminal AppleShowScrollBars -string WhenScrolling
+
 <end>
