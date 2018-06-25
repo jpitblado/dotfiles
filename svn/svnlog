@@ -1,10 +1,31 @@
 #!/bin/sh
 # svnlog
-# version 1.0.0  25mar2011
-#
-# This script causes -svn diff- to report the standard diff output instead of
-# the default extensions used by -svn diff-.
+# version 1.1.0  21jun2018
 
-svn log --stop-on-copy ${*}
+ARGS="$@"
+hasrev=0
+while [ $# -ne 0 ]
+do
+	echo "1 is $1"
+	case $1 in
+	-r*)	hasrev=1
+		break
+		;;
+	--revision*)
+		hasrev=1
+		break
+		;;
+	esac
+	shift
+done
+
+unset REVOPT
+if [ $hasrev -eq 0 ]
+then
+	REVOPT="-r HEAD:`svn_copy_rev ${ARGS}`"
+	echo "REVOPT is $REVOPT"
+fi
+
+svn log --stop-on-copy ${REVOPT} ${ARGS}
 
 exit

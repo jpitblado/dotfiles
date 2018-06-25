@@ -25,16 +25,6 @@ pathmunge () {
 # prepend these to the path
 pathmunge /usr/local/bin
 pathmunge $HOME/bin
-pathmunge $HOME/bin1
-pathmunge $HOME/bin2
-pathmunge $HOME/bin3
-pathmunge $HOME/bin4
-pathmunge $HOME/bin5
-pathmunge $HOME/bin6
-pathmunge $HOME/bin7
-pathmunge $HOME/bin8
-pathmunge $HOME/bin9
-pathmunge $HOME/bin0
 
 # append these to the path
 if ! echo $PATH | egrep $OPT "(^|:)\.(\$|:)"
