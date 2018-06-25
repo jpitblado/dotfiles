@@ -6,7 +6,6 @@ ARGS="$@"
 hasrev=0
 while [ $# -ne 0 ]
 do
-	echo "1 is $1"
 	case $1 in
 	-r*)	hasrev=1
 		break
@@ -23,7 +22,6 @@ unset REVOPT
 if [ $hasrev -eq 0 ]
 then
 	REVOPT="-r HEAD:`svn_copy_rev ${ARGS}`"
-	echo "REVOPT is $REVOPT"
 fi
 
 svn log --stop-on-copy ${REVOPT} ${ARGS}
