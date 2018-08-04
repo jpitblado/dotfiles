@@ -1,6 +1,7 @@
 # .gitignore
 
 # junk files
+mm
 _diff.log
 _spell.log
 stata.log
