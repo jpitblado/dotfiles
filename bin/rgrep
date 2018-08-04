@@ -8,6 +8,8 @@ grep	--recursive		\
 	--exclude-dir=.git	\
 	--exclude-dir=.svn	\
 	--exclude-dir=ood	\
+	--exclude-dir=xcuser*	\
+	--exclude-dir=xcshare*	\
 	${*}
 
 # end: rgrep

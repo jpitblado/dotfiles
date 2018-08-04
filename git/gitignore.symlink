@@ -19,6 +19,7 @@ efile.out
 # Xcode files
 DerivedData
 xcuserdata
+xcshareddata
 UserInterfaceState.xcuserstate
 
 # end: .gitignore
