@@ -15,6 +15,9 @@ Linux)
 	if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]
 	then
 		. /usr/share/git-core/contrib/completion/git-prompt.sh
+	elif [ -f /etc/bash_completion ]
+	then
+		. /etc/bash_completion
 	fi
 	;;
 esac
