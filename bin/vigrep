@@ -2,7 +2,7 @@
 # vigrep
 # Copyright (c) 2005 Jeffrey S. Pitblado
 
-if which vim >& /dev/null
+if which vim > /dev/null 2>&1
 then
 	myvi=vim
 else
