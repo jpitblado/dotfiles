@@ -21,7 +21,7 @@ link_files () {
 }
 
 setup_gitconfig () {
-	if ! [ -f git/gitconfig.symlink ]
+	if [ ! -f git/gitconfig.symlink ]
 	then
 		echo "Note: setup gitconfig"
 
