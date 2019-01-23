@@ -23,7 +23,7 @@ pathmunge () {
 }
 
 # prepend these to the path
-pathmunge $DOTFILES/svn
+pathmunge $DOTFILES/svn after
 
 unset OPT
 unset pathmunge
