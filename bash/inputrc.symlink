@@ -1,6 +1,8 @@
 # .inputrc
 
-set mark-directores on
+# the following should be "on" by default
+#set mark-directores on
+
 set mark-symlinked-directories on
 
 # end: .inputrc
