@@ -9,8 +9,8 @@ Get and set the size of the mouse pointer:
 
 	$ gsettings set org.gnome.desktop.interface cursor-size 48
 
-Make Gnome 3 workspaces work on both monditors in a dual-monitor setup:
 
+Make Gnome 3 workspaces work on both monitors in a dual-monitor setup:
 
 	$ gsettings get org.gnome.shell.overrides workspaces-only-on-primary
 	true
@@ -19,8 +19,9 @@ Make Gnome 3 workspaces work on both monditors in a dual-monitor setup:
 
 	However, this did not seem to work.  I then noticed that the
 	Gnome-Tweak-Tool has a 'Workspaces' tab, and found an on/off
-	toggle for 'Workspaces only on primary dispplay'.  I turned it
+	toggle for 'Workspaces only on primary display'.  I turned it
 	off, and now have the behavior that I wanted.
+
 
 Setup the apache web server:
 
@@ -41,6 +42,7 @@ Setup the apache web server:
 		$ sudo apachectl start
 		$ sudo apachectl stop
 		$ sudo apachectl restart
+
 
 Set the default printer:
 
