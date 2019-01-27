@@ -1,0 +1,6 @@
+#!/bin/bash
+# svnignored
+
+svn status --no-ignore ${*} | grep "^I" | sed -e 's/^I *//'
+
+exit
