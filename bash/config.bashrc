@@ -9,6 +9,8 @@ export EDITOR=vim
 export HISTFILESIZE=500
 export HISTSIZE=1000
 
+# check bash version to set shopt direxpand, an alternative is to use
+# CTRL-ALT-e instead of TAB to expand the macro
 if [ ${BASH_VERSINFO[0]} -gt 4 ]
 then
 	shopt -s direxpand
