@@ -45,6 +45,7 @@ find . -type d				\
 		-o -name "efile.out"	\
 		-o -name "stata.log"	\
 		-o -name "*~"		\
+		-o -name ".DS_Store"	\
 	\)				\
 	-exec $MYCMD {} ';'
 

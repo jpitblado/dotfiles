@@ -23,6 +23,7 @@ pathmunge () {
 }
 
 # prepend these to the path
+pathmunge /usr/local/sbin
 pathmunge /usr/local/bin
 pathmunge $HOME/bin
 
