@@ -30,6 +30,9 @@ Darwin)
 esac
 alias ndate='date '+%Y%m%d''
 
+# shell level
+alias shlvl='echo $SHLVL'
+
 # 'ls' shortcuts
 alias l='ls -lL'
 alias l.='ls -d .*'
