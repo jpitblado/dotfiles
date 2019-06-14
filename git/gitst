@@ -1,12 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 # gitst
-# version 1.0.1  31jul2013
+# Copyright (c) 2013 Jeffrey S. Pitblado
 
 if [ "$#" = "0" ]
 then
 	git status --short . | awk "{print \$NF}" | sort
 else
-	git status --short . | grep ${*} | awk "{print \$NF}" | sort
+	args=()
+	for arg; do args+=("$arg"); done
+	git status --short . | grep "${args[@]}" | awk "{print \$NF}" | sort
 fi
 
 exit

@@ -1,12 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 # svnst
-# version 1.0.1  02apr2005
+# Copyright (c) 2005 Jeffrey S. Pitblado
 
 if [ "$#" = "0" ]
 then
 	svn st | awk "{print \$NF}" | sort
 else
-	svn st | grep ${*} | awk "{print \$NF}" | sort
+	args=()
+	for arg; do args+=("$arg"); done
+	svn st | grep "${args[@]}" | awk "{print \$NF}" | sort
 fi
 
 exit
