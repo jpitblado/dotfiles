@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # svnst
 # Copyright (c) 2005 Jeffrey S. Pitblado
 
@@ -6,9 +6,7 @@ if [ "$#" = "0" ]
 then
 	svn st | awk "{print \$NF}" | sort
 else
-	args=()
-	for arg; do args+=("$arg"); done
-	svn st | grep "${args[@]}" | awk "{print \$NF}" | sort
+	svn st | grep "${@}" | awk "{print \$NF}" | sort
 fi
 
 exit

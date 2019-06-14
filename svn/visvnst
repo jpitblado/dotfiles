@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # visvnst
 # Copyright (c) 2017 Jeffrey S. Pitblado
 
@@ -9,7 +9,4 @@ else
 	myvi=vi
 fi
 
-args=()
-for arg; do args+=("$arg"); done
-
-$myvi `svnst "${args[@]}"`
+$myvi `svnst "${@}"`
