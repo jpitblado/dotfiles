@@ -9,4 +9,4 @@ else
 	myvi=vi
 fi
 
-$myvi `grep -l ${*}`
+$myvi `grep -l "${@}"`

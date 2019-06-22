@@ -1,5 +1,5 @@
 #!/bin/sh
-# git-status.sh
+# git-loop.sh
 
 self=`basename $0`
 
@@ -44,4 +44,4 @@ do
 	fi
 done
 
-# end: git-status.sh
+# end: git-loop.sh
