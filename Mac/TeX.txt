@@ -1,9 +1,0 @@
-TeX.txt
-
-Switch between TeX distributions:
-
-	$ texdist --usage
-	$ texdist --list --all
-	$ texdist --setcurrent=TeXLive-2014
-
-<end>
