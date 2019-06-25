@@ -1,0 +1,33 @@
+/* style.css
+ * version 1.0.0  25jun2019
+ */
+
+html {
+	margin:		0 ;
+	padding:	0 ;
+}
+
+body {
+	font:		120% arial, sans-serif ;
+	line-height:	1.11 ;
+	color:		#303030 ;
+	margin:		2ex ;
+	padding:	0 ;
+}
+
+p {
+	margin-bottom:	1ex ;
+}
+
+pre {
+	display:	block ;
+	font-family:	monospace ;
+	white-space:	pre ;
+	margin:		1em 4em ;
+}
+
+code {
+	font-family:	monospace ;
+}
+
+/* end:	style.css */
