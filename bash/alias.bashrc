@@ -1,6 +1,9 @@
 # alias.bashrc
 # common everyday aliases
 
+# path management
+alias push2path='export PATH=$PATH:`pwd`'
+
 # directory navigation
 alias ,='pushd .'
 alias ,,='popd'
