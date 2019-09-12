@@ -1,0 +1,38 @@
+#!/bin/bash
+# browse
+# Copyright (c) 2019 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+usage () {
+	cat <<EOF
+usage: $self <path>
+
+Launch file browser for the specified path.
+EOF
+	exit 1
+}
+
+if [ $# -eq 1 ]
+then
+	case "$1" in
+	-h|--help)
+		usage
+		;;
+	*)	args="${1}"
+		;;
+	esac
+else
+	usage
+fi
+
+case "`uname`" in
+Darwin)	open ${args}
+	;;
+Linux)	nautilus ${args} >& /dev/null &
+	;;
+CYG*)	/cygdrive/c/WINDOWS/explorer.exe /e,`cygpath -w -a "${args}"` &
+	;;
+esac
+
+# end: browse
