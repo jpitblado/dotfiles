@@ -1,7 +1,7 @@
-# alias.bashrc
+# bin/alias.shrc
 
 # xcolumn shortcuts
 alias firstcolumn='xcolumn 1'
 alias lastcolumn='xcolumn NF'
 
-# end: alias.bashrc
+# end: bin/alias.shrc

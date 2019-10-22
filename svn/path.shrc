@@ -1,0 +1,7 @@
+# svn/path.shrc
+
+# append to the path
+pathmunge $DOTFILES/svn after
+export PATH
+
+# end: svn/path.shrc

@@ -25,7 +25,7 @@ esac
 complete -f -X '*.@(o|so|so.!(conf)|a|[rs]pm|gif|jp?(e)g|mp3|mp?(e)g|avi|asf|ogg)' vi vim gvim view gview
 
 # bash prompt
-if type __git_ps1 >& /dev/null
+if declare -F __git_ps1 >& /dev/null
 then
 	export GIT_PS1_SHOWDIRTYSTATE="true"
 	export GIT_PS1_SHOWUNTRACKEDFILES="true"

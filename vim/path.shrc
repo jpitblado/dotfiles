@@ -1,0 +1,9 @@
+# vim/path.shrc
+
+for file in `find -L $HOME/.vim/bundle -name "path.shrc"`
+do
+	debug_msg "sourcing $file"
+	source $file
+done
+
+# end: vim/path.shrc

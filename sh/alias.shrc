@@ -1,4 +1,4 @@
-# alias.bashrc
+# sh/alias.shrc
 # common everyday aliases
 
 # path management
@@ -74,4 +74,4 @@ CYGWIN*)
 	;;
 esac
 
-# end: alias.bashrc
+# end: sh/alias.shrc

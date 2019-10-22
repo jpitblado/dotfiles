@@ -1,0 +1,76 @@
+# zsh/zshrc
+
+export DOTFILES=$HOME/.dotfiles
+
+# build unique lists of resource files
+typeset -U shrcFiles
+shrcFiles=($DOTFILES/**/*.shrc)
+typeset -U zrcFiles
+zrcFiles=($DOTFILES/**/*.zshrc)
+
+debug_msg () {
+	#echo "$*"
+	return
+}
+
+pathmunge () {
+	if [ -d $1 ]
+	then
+		local plist
+		plist=("${(s/:/)}PATH")
+		if [[ ${plist[(ie)$1]} -gt ${#plist} ]]
+		then
+			if [ "$2" = "after" ]
+			then
+				debug_msg "$1 appended to PATH"
+				PATH=$PATH:$1
+			else
+				debug_msg "$1 prepended to PATH"
+				PATH=$1:$PATH
+			fi
+		else
+			debug_msg "$1 already in PATH"
+		fi
+	else
+		debug_msg "$1 is not a directory"
+	fi
+}
+
+# load all shrc files
+for file in ${shrcFiles}
+do
+	debug_msg "sourcing $file"
+	source $file
+done
+
+# load all path files
+for file in ${(M)zrcFiles:#*/path.zshrc}
+do
+	debug_msg "sourcing $file"
+	source $file
+done
+
+# load everything but path and completion files
+for file in ${${zrcFiles:#*/path.zshrc}:#*/completion.zshrc}
+do
+	debug_msg "sourcing $file"
+	source $file
+done
+
+# initialize autocomplete
+autoload -U compinit
+compinit
+
+# load all completion files
+for file in ${(M)zrcFiles:#*/completion.zshrc}
+do
+	debug_msg "sourcing $file"
+	source $file
+done
+
+unset pathmunge
+unset debug_msg
+unset zrcFiles
+unset shrcFiles
+
+# end: zsh/zshrc

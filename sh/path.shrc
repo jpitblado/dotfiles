@@ -1,0 +1,17 @@
+# sh/path.shrc
+
+# prepend to the path
+pathmunge /usr/local/sbin
+pathmunge /usr/local/bin
+pathmunge $HOME/bin
+
+# append to the path
+if ! echo $PATH | egrep "(^|:)\.(\$|:)" > /dev/null 2>&1
+then
+	debug_msg ". appended to PATH"
+	PATH=$PATH:.
+fi
+
+export PATH
+
+# end: sh/path.shrc

@@ -1,0 +1,7 @@
+# git/path.shrc
+
+# append to the path
+pathmunge $DOTFILES/git after
+export PATH
+
+# end: git/path.shrc
