@@ -6,9 +6,9 @@ self=`basename $0`
 
 Usage () {
 	cat <<EOF
-Usage: $self [update]
+Usage: $self [status|update]
 
-Use 'git pull' to update your working copy of dotfiles/
+Call 'git status' or 'git pull' in the working copy.
 EOF
 	exit 1
 }
@@ -19,19 +19,20 @@ case "$#" in
 	;;
 esac
 
+d=`dirname $0`
+cd $d || exit 1
+
 case "$1" in
-update)	;;
+status)
+	echo "$self: checking status..."
+	git status --short
+	;;
+update)
+	echo "$self: pulling updates..."
+	git pull
+	;;
 *)	Usage
 	;;
 esac
 
-d=`dirname $0`
-cd $d || exit 1
-echo "$self: pulling updates..."
-if git pull
-then
-	echo "$self: you are up-to-date"
-else
-	echo "$self: problem pulling the update"
-fi
-
+# end: dotfiles
