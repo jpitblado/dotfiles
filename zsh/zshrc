@@ -17,7 +17,7 @@ pathmunge () {
 	if [ -d $1 ]
 	then
 		local plist
-		plist=("${(s/:/)}PATH")
+		plist=("${(s/:/)PATH}")
 		if [[ ${plist[(ie)$1]} -gt ${#plist} ]]
 		then
 			if [ "$2" = "after" ]
