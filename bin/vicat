@@ -1,0 +1,33 @@
+#!/bin/sh
+# vicat
+# Copyright (c) 2019 Jeffrey S. Pitblado
+
+self=`basename $0`
+
+usage () {
+	cat <<EOF
+usage: $self <file>
+
+Call Vim using the contents of <file> as the list of arguments.
+EOF
+}
+
+if [ $# -eq 1 ]
+then
+	case "$1" in
+	-h|--help)
+		usage
+		;;
+	esac
+else
+	usage
+fi
+
+if type vim > /dev/null 2>&1
+then
+	myvi=vim
+else
+	myvi=vi
+fi
+
+$myvi `cat $1`
