@@ -61,16 +61,21 @@ CYGWIN*)
 	;;
 *)
 	# File type and extension color highlighting.
+	if [ "$WSL_DISTRO_NAME" != "" ]
+	then
+		NThide="--hide=NTUSER* --hide=ntuser*"
+	fi
 	if type dircolors >& /dev/null
 	then
 		if [ -f $DOTFILES/linux/ls-colors ]
 		then
 			eval `dircolors --sh $DOTFILES/linux/ls-colors`
-			alias ls='ls --color -Fv'
+			alias ls="ls --color -Fv $NThide"
 		fi
 	else
 		alias ls='ls -Fv'
 	fi
+	unset NThide
 	;;
 esac
 
