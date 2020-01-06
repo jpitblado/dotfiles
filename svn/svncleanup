@@ -21,18 +21,31 @@ then
 	Usage
 fi
 
+v=`svn --version | grep "svn," | awk '{print $3}'`
+v0=`echo $v | sed -e 's/\./ /g' | awk '{print $1}'`
+v1=`echo $v | sed -e 's/\./ /g' | awk '{print $2}'`
+
+unset depth
+if [ $v0 -eq 1 ]
+then
+	if [ $v1 -lt 7 ]
+	then
+		depth="-maxdepth 2"
+	fi
+fi
+
 n=0
 t=0
-find ${*} -name ".svn" > $tmp || exit 1
+find ${*} $depth -name ".svn" > $tmp || exit 1
 for s in `cat $tmp`
 do
 	p=`dirname $s`
 	echo -n "cleaning $p: "
-	s0=`du -sm $p | awk "{print 1}"`
+	s0=`du -sm $p | awk '{print $1}'`
 	svn cleanup $p || exit 1
-	s1=`du -sm $p | awk "{print 1}"`
+	s1=`du -sm $p | awk '{print $1}'`
 	diff=$(expr $s0 - $s1)
-	echo "$diff MB removed"
+	echo "${diff}M removed"
 	let n+=1
 	let t+=$diff
 done
@@ -42,7 +55,7 @@ then
 	echo "no SVN folders found"
 elif [ $n -gt 1 ]
 then
-	echo "total $t MB removed"
+	echo "total ${t}M removed"
 fi
 
 # end: svncleanup
