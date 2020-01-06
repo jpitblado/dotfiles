@@ -1,35 +1,48 @@
-#!/bin/sh
+#!/bin/bash
 # svncleanup
 
 self=`basename $0`
+tmp=$self-tmp-$$
+trap "rm -rf $tmp; exit" 0 1 2 3 15
 
 Usage() {
 	cat <<EOF
-$self <dir>
+$self <dirlist>
 
-Report disk usage and call -svn cleanup- for <dir>.
+Loop over all the ".svn" folders in <dirlist> and run -svn cleanup- on
+their parents.
 
 EOF
 	exit 1
 }
 
-if [ $# -ne 1 ]
+if [ $# -eq 0 ]
 then
 	Usage
 fi
 
-cd "$1"	|| exit 1
+n=0
+t=0
+find ${*} -name ".svn" > $tmp || exit 1
+for s in `cat $tmp`
+do
+	p=`dirname $s`
+	echo -n "cleaning $p: "
+	s0=`du -sm $p | awk "{print 1}"`
+	svn cleanup $p || exit 1
+	s1=`du -sm $p | awk "{print 1}"`
+	diff=$(expr $s0 - $s1)
+	echo "$diff MB removed"
+	let n+=1
+	let t+=$diff
+done
 
-echo
-echo "disk usage before: $1"
-du -sm .
-
-echo
-echo "calling svn cleanup"
-svn cleanup .		|| exit 1
-
-echo
-echo "disk usage after:  $1"
-du -sm .
+if [ $n -eq 0 ]
+then
+	echo "no SVN folders found"
+elif [ $n -gt 1 ]
+then
+	echo "total $t MB removed"
+fi
 
 # end: svncleanup
