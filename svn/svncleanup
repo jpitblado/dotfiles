@@ -36,7 +36,7 @@ fi
 
 n=0
 t=0
-find ${*} $depth -name ".svn" > $tmp || exit 1
+find ${*} $depth -name ".svn" | sort > $tmp || exit 1
 for s in `cat $tmp`
 do
 	p=`dirname $s`
