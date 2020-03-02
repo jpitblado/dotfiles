@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Firefox
-Exec=gnome-terminal --window-with-profile=vnc
+Exec=firefox
 Type=Application
 GenericName=Firefox
 Comment=Firefox
