@@ -39,6 +39,7 @@ $ gsettings set org.gnome.shell favorite-apps "`cat apps-list`"
 ```
 
 See the following files for a examples.
+Place .desktop files in `~/.local/share/applications/`.
 
 - Gnome3/apps-list
 - Gnome3/firefox.desktop
