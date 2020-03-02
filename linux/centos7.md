@@ -38,6 +38,13 @@ Add a .desktop file to ~/.local/share/applications and to the list in
 $ gsettings set org.gnome.shell favorite-apps "`cat apps-list`"
 ```
 
+See the following files for a examples.
+
+- Gnome3/apps-list
+- Gnome3/firefox.desktop
+- Gnome3/MediumTerminal.desktop
+- Gnome3/SmallTerminal.desktop
+
 ## Setup the apache web server
 
 Install the server

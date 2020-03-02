@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Small Terminal
+Exec=gnome-terminal --window-with-profile=vnc
+Type=Application
+GenericName=Small Terminal
+Comment=Small Terminal
+Keywords=shell;prompt;command;commandline;cmd;
+#Icon=/usr/share/icons/HighContrast/24x24/apps/utilities-terminal.png
+Icon=utilities-terminal-symbolic
+Categories=GNOME;GTK;System;TerminalEmulator;

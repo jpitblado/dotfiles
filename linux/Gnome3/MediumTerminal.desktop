@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Medium Terminal
+Exec=gnome-terminal --window-with-profile=medium
+Type=Application
+GenericName=Medium Terminal
+Comment=Medium Terminal
+Keywords=shell;prompt;command;commandline;cmd;
+#Icon=/usr/share/icons/HighContrast/24x24/apps/utilities-terminal.png
+Icon=face-cool
+Categories=GNOME;GTK;System;TerminalEmulator;
