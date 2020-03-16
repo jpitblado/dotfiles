@@ -78,6 +78,13 @@ $ sudo apachectl restart
 $ lpoptions -d <printer-name>
 ```
 
+## Restart cups (printer) queues
+
+```
+$ sudo systemctl restart cups-browsed
+$ sudo systemctl restart cups
+```
+
 ## Mount iso file
 
 Create folder to mount on
