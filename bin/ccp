@@ -216,7 +216,7 @@ ACCEPT_FILE () {
 	esac
 }
 
-# Usage:  VIEW_FILE <log> <other files>
+# Usage:  VIEW_FILE <log> <src> <dest>
 # cat or edit a log file.  After listing all files supplied in the arguments.
 
 VIEW_FILE () {
@@ -234,10 +234,10 @@ VIEW_FILE () {
 	y|yes|Y|YES)  echo
 		cat $VLlog
 		;;
-	d|vimdiff)
+	v|vimdiff)
 		vimdiff $VLsrc $VLdest
 		;;
-	v|vi)	vim $VLlog
+	d|vi)	vim $VLlog
 		;;
         q)	echo "no action taken, and quitting"
 		return 2
