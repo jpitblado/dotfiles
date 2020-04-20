@@ -1,5 +1,7 @@
 # sh/path.shrc
 
+. $DOTFILES/sh/pathmunge.sh
+
 # prepend to the path
 pathmunge /usr/local/sbin
 pathmunge /usr/local/bin

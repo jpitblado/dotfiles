@@ -8,33 +8,7 @@ shrcFiles=($DOTFILES/**/*.shrc)
 typeset -U zrcFiles
 zrcFiles=($DOTFILES/**/*.zshrc)
 
-debug_msg () {
-	#echo "$*"
-	return
-}
-
-pathmunge () {
-	if [ -d $1 ]
-	then
-		local plist
-		plist=("${(s/:/)PATH}")
-		if [[ ${plist[(ie)$1]} -gt ${#plist} ]]
-		then
-			if [ "$2" = "after" ]
-			then
-				debug_msg "$1 appended to PATH"
-				PATH=$PATH:$1
-			else
-				debug_msg "$1 prepended to PATH"
-				PATH=$1:$PATH
-			fi
-		else
-			debug_msg "$1 already in PATH"
-		fi
-	else
-		debug_msg "$1 is not a directory"
-	fi
-}
+. $DOTFILES/sh/debug_msg.sh
 
 # load all shrc files
 for file in ${shrcFiles}

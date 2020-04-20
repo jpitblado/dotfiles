@@ -1,5 +1,7 @@
 # bin/path.shrc
 
+. $DOTFILES/sh/pathmunge.sh
+
 # prepend to the path
 pathmunge $DOTFILES/bin
 export PATH
