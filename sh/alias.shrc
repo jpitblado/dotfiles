@@ -56,7 +56,7 @@ Darwin)
 	alias ls='ls -Fv'
 	;;
 CYGWIN*)
-	eval `dircolors --sh $DOTFILES/linux/ls-colors`
+	eval `dircolors --sh $DOTFILES/Linux/ls-colors`
 	alias ls='ls --color -Fv --hide=NTUSER* --hide=ntuser*'
 	;;
 *)
@@ -67,9 +67,9 @@ CYGWIN*)
 	fi
 	if type dircolors >& /dev/null
 	then
-		if [ -f $DOTFILES/linux/ls-colors ]
+		if [ -f $DOTFILES/Linux/ls-colors ]
 		then
-			eval `dircolors --sh $DOTFILES/linux/ls-colors`
+			eval `dircolors --sh $DOTFILES/Linux/ls-colors`
 			alias ls="ls --color -Fv $NThide"
 		fi
 	else
