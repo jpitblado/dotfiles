@@ -5,6 +5,5 @@ Type=Application
 GenericName=Firefox
 Comment=Firefox
 Keywords=browser;
-#Icon=/usr/share/icons/HighContrast/24x24/apps/utilities-terminal.png
 Icon=firefox
 Categories=Internet;

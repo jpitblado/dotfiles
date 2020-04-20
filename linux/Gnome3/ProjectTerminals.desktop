@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Project Terminals
+Exec=/home/jsp/projects/current.sh
+Type=Application
+GenericName=Project Terminals
+Comment=Project Terminals
+Keywords=shell;prompt;command;commandline;cmd;
+Icon=face-cool
+Categories=GNOME;GTK;System;TerminalEmulator;
