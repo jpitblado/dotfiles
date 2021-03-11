@@ -1,0 +1,41 @@
+#!/bin/bash
+# svnscour
+
+self=`basename $0`
+
+Usage() {
+	cat <<EOF
+$self <dirlist>
+
+Loop over folders in <dirlist> and do the following:
+
+	> svn revert --recursive .
+	> svn status --no-ignore | awk '{print \$NF}' | xargs rm -rf
+	> svn update --quiet
+
+EOF
+	exit 1
+}
+
+if [ $# -eq 0 ]
+then
+	Usage
+fi
+
+h=`pwd`
+for d in ${*}
+do
+	cd "$h"
+	if [ ! -d "$d" ]
+	then
+		echo "$self: skipping $d"
+		continue
+	fi
+	echo "$self: scouring $d"
+	cd "$d" || exit 1
+	svn revert -R . || exit 1
+	svn status --no-ignore | awk '{print $NF}' | xargs rm -rf || exit 1
+	svn update --quiet || exit 1
+done
+
+# end: svnscour
