@@ -33,7 +33,7 @@ done
 
 # initialize autocomplete
 autoload -U compinit
-compinit
+compinit -u
 
 # load all completion files
 for file in ${(M)zrcFiles:#*/completion.zshrc}
