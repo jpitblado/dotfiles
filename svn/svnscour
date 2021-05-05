@@ -12,6 +12,7 @@ Loop over folders in <dirlist> and do the following:
 	> svn revert --recursive .
 	> svn status --no-ignore | awk '{print \$NF}' | xargs rm -rf
 	> svn update --quiet
+	> svn status --no-ignore
 
 EOF
 	exit 1
@@ -36,6 +37,7 @@ do
 	svn revert -R . || exit 1
 	svn status --no-ignore | awk '{print $NF}' | xargs rm -rf || exit 1
 	svn update --quiet || exit 1
+	svn status --no-ignore
 done
 
 # end: svnscour
