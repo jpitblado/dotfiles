@@ -7,7 +7,6 @@ alias push2path='export PATH=$PATH:`pwd`'
 # directory navigation
 alias ,='pushd .'
 alias ,,='popd'
-alias ..='cd ..'
 
 # default options
 alias rm='rm -i'
