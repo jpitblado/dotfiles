@@ -1,0 +1,10 @@
+# sh/brew.shrc
+# brew customizations
+
+case "`uname`" in
+Darwin)
+	export HOMEBREW_BUNDLE_NO_LOCK=1
+	;;
+esac
+
+# end: sh/brew.shrc
