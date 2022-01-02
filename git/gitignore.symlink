@@ -18,9 +18,10 @@ efile.out
 .DS_Store?
 
 # Xcode files
+build
 DerivedData
-xcuserdata
-xcshareddata
 UserInterfaceState.xcuserstate
+xcshareddata
+xcuserdata
 
 # end: .gitignore
