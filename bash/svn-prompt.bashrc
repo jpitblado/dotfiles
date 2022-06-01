@@ -113,8 +113,19 @@ __svn_ps1 ()
 	PS1="$ps1pc_start$svnstring$ps1pc_end"
 }
 
+if [ -r /etc/profile.d/vte.sh ]
+then
+	# defines __vte_prompt_command -- which sets the terminal path
+	# so that new tabs and windows use the callers PWD
+	. /etc/profile.d/vte.sh
+fi
+
 __git_svn_ps1 ()
 {
+	if declare -F __vte_prompt_command >& /dev/null
+	then
+		__vte_prompt_command
+	fi
 	if __in_svn_repo
 	then
 		__svn_ps1 "$@"
