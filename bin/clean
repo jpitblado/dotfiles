@@ -13,6 +13,7 @@ Removes the following temporary files:
 	_diff.log
 	_spell.log
 	efile.out
+	gg.log
 	stata.log
 	*~
 EOF
@@ -43,6 +44,7 @@ find . -type d				\
 	\(	   -name "_diff.log"	\
 		-o -name "_spell.log"	\
 		-o -name "efile.out"	\
+		-o -name "gg.log"	\
 		-o -name "stata.log"	\
 		-o -name "*~"		\
 		-o -name ".DS_Store"	\
