@@ -14,6 +14,7 @@ Removes the following temporary files:
 	_spell.log
 	efile.out
 	gg.log
+	ww.log
 	stata.log
 	*~
 EOF
@@ -45,6 +46,7 @@ find . -type d				\
 		-o -name "_spell.log"	\
 		-o -name "efile.out"	\
 		-o -name "gg.log"	\
+		-o -name "ww.log"	\
 		-o -name "stata.log"	\
 		-o -name "*~"		\
 		-o -name ".DS_Store"	\
