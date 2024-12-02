@@ -13,7 +13,9 @@ do
 	. $file
 done
 
-for file in `find -L "$DOTFILES" -name "*.bashrc"`
+# reverse sort order to ensure prompt.bashrc is sourced after
+# svn-prompt.bashrc
+for file in `find -L "$DOTFILES" -name "*.bashrc" | sort -r`
 do
 	debug_msg "sourcing $file"
 	. $file
