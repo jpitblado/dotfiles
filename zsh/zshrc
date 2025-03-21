@@ -47,4 +47,6 @@ unset debug_msg
 unset zrcFiles
 unset shrcFiles
 
+unsetopt share_history
+
 # end: zsh/zshrc
