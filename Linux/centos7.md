@@ -32,7 +32,7 @@ $ gsettings get org.gnome.shell favorite-apps | tee apps-list
 ```
 
 Add a .desktop file to ~/.local/share/applications and to the list in
-`app-list` file created by above command, then write the list using
+`apps-list` file created by above command, then write the list using
 
 ```
 $ gsettings set org.gnome.shell favorite-apps "`cat apps-list`"
