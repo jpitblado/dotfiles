@@ -50,6 +50,7 @@ Darwin)
 	alias acroread='open -a "Adobe Reader"'
 	alias chrome='open -a "Google Chrome"'
 	alias firefox='open -a "/Applications/Firefox.app"'
+	alias skim='open -a "Skim"'
 	export CLICOLOR=1
 	export LSCOLORS=ExGxBxDxCxegedabagacad
 	alias ls='ls -Fv'
