@@ -1,4 +1,4 @@
-# sh/brew.shrc
+# brew/config.shrc
 # brew customizations
 
 case "`uname`" in
@@ -7,4 +7,4 @@ Darwin)
 	;;
 esac
 
-# end: sh/brew.shrc
+# end: brew/config.shrc
