@@ -24,6 +24,12 @@ do
 	source $file
 done
 
+# brew setup
+if type brew &>/dev/null
+then
+	eval "$(brew shellenv)"
+fi
+
 # load everything but path and completion files
 for file in ${${zrcFiles:#*/path.zshrc}:#*/completion.zshrc}
 do
