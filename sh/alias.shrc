@@ -25,9 +25,11 @@ alias today='date '+%y-%m-%d''
 case "`uname`" in
 Darwin)
 	alias lfriday="date -v-fri '+%y-%m-%d'"
+	alias nfriday="date -v+fri '+%y-%m-%d'"
 	;;
 *)
 	alias lfriday="date '+%y-%m-%d' -d 'last friday'"
+	alias nfriday="date '+%y-%m-%d' -d 'next friday'"
 	;;
 esac
 alias ndate='date '+%Y%m%d''
